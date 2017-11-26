@@ -67,7 +67,7 @@ src_configure() {
 	econf \
 		--enable-exampledir=/usr/share/doc/${PF}/samples \
 		--enable-irdp \
-		$(use_enable isi isisd) \
+		$(use_enable isis isisd) \
 		--enable-ldpd \
 		$(use_enable pim pimd) \
 		--enable-watchfrr \
