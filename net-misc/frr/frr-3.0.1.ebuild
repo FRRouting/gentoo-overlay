@@ -5,16 +5,8 @@ EAPI=6
 
 inherit autotools eutils flag-o-matic multilib pam readme.gentoo-r1 systemd tmpfiles user vcs-snapshot
 
-if [[ ${PV} != 9999 ]]; then
-	SRC_URI="https://github.com/FRRouting/frr/archive/${P}.tar.gz"
-	KEYWORDS="~amd64 ~x86"
-else
-	inherit git-r3
-	SRC_URI=""
-	EGIT_REPO_URI="https://github.com/FRRouting/frr.git"
-	KEYWORDS=""
-fi
-
+SRC_URI="https://github.com/FRRouting/frr/archive/FRR-3.0.1.tar.gz"
+KEYWORDS="~amd64 ~x86"
 DESCRIPTION="Free Range Routing Protocol Suite, fork of Quagga"
 HOMEPAGE="https://frrouting.org/"
 

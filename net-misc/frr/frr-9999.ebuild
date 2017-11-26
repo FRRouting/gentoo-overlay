@@ -7,9 +7,12 @@ inherit autotools eutils flag-o-matic multilib pam readme.gentoo-r1 systemd tmpf
 
 if [[ ${PV} != 9999 ]]; then
 	SRC_URI="https://github.com/FRRouting/frr/archive/${P}.tar.gz"
+	KEYWORDS="~amd64 ~x86"
 else
 	inherit git-r3
+	SRC_URI=""
 	EGIT_REPO_URI="https://github.com/FRRouting/frr.git"
+	KEYWORDS=""
 fi
 
 DESCRIPTION="Free Range Routing Protocol Suite, fork of Quagga"
@@ -17,7 +20,6 @@ HOMEPAGE="https://frrouting.org/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
 
 IUSE="caps fpm doc elibc_glibc ipv6 multipath nhrpd ospfapi pam protobuf +readline shell-access snmp isis pim"
 
