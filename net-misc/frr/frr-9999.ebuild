@@ -21,7 +21,7 @@ HOMEPAGE="https://frrouting.org/"
 LICENSE="GPL-2"
 SLOT="0"
 
-IUSE="caps fpm doc elibc_glibc ipv6 multipath nhrpd ospfapi pam protobuf +readline shell-access snmp isis pim"
+IUSE="caps fpm doc elibc_glibc ipv6 multipath nhrpd ospfapi pam protobuf +readline shell-access snmp isis pim rpki"
 
 COMMON_DEPEND="
 	!!net-misc/quagga
@@ -34,7 +34,8 @@ COMMON_DEPEND="
 		pam? ( sys-libs/pam )
 	)
 	snmp? ( net-analyzer/net-snmp )
-	!elibc_glibc? ( dev-libs/libpcre )"
+	!elibc_glibc? ( dev-libs/libpcre )
+	rpki? ( >=net-libs/rtrlib-0.5.0 )"
 DEPEND="${COMMON_DEPEND}
 	dev-perl/XML-LibXML
 	sys-apps/gawk
@@ -101,7 +102,8 @@ src_configure() {
 		$(use_enable shell-access) \
 		$(use_enable ipv6 ripngd) \
 		$(use_enable ipv6 ospf6d) \
-		$(use_enable ipv6 rtadv)
+		$(use_enable ipv6 rtadv) \
+		$(use_enable rpki)
 }
 
 src_install() {

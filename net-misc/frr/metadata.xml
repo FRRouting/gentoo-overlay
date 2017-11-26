@@ -38,5 +38,8 @@
 		<flag name="pim">
 			Enable PIM daemon
 		</flag>
+		<flag name="rpki">
+			Enable RPKI support
+		</flag>
 	</use>
 </pkgmetadata>
