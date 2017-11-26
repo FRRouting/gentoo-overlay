@@ -46,6 +46,11 @@ starting one of the daemons.
 You can pass additional options to the daemon by setting the EXTRA_OPTS
 variable in their respective file in /etc/conf.d"
 
+src_unpack() {
+	unpack ${A}
+	mv -v "${WORKDIR}/frr-FRR-3.0.1" "${S}"
+}
+
 pkg_setup() {
 	enewgroup quagga
 	enewuser quagga -1 -1 /var/empty quagga
