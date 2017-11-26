@@ -38,5 +38,6 @@ src_configure() {
 
 src_install() {
 	default
+	cmake-utils_src_install
 	prune_libtool_files
 }
