@@ -32,10 +32,6 @@
 		<flag name="shell-access">
 			Enable user access to shell/telnet/ssh
 		</flag>
-		<flag name="tcp-zebra">
-			Enable TCP zserv interface on port 2600 for Zebra/protocol-daemon communication. Unix domain
-			sockets are chosen otherwise
-		</flag>
 		<flag name="isis">
 			Enable ISIS daemon
 		</flag>
