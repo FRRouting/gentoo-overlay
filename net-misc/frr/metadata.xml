@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>frr-gentoo@devilcode.org</email>
+		<name>Daniel 'f0o' Preussker</name>
+	</maintainer>
+	<use>
+		<flag name="fpm">
+			Enable Forwarding Plane Manager support
+		</flag>
+		<flag name="multipath">
+			Enable multipath routes support for any number of routes
+		</flag>
+		<flag name="nhrpd">
+			Build Next Hop Resolution Protocol daemon
+		</flag>
+		<flag name="ospfapi">
+			Enable OSPFAPI support for client applications accessing the OSPF link state database
+		</flag>
+		<flag name="pam">
+			Add support for PAM (via <pkg>sys-libs/pam</pkg>) to the Quagga Virtual Terminal Interface
+			Shell (vtysh); if the readline USE flag is disabled, this flag is ignored
+		</flag>
+		<flag name="protobuf">
+			Enable support for <pkg>dev-libs/protobuf</pkg>
+		</flag>
+		<flag name="readline">
+			Enable support for <pkg>sys-libs/readline</pkg> to provide the Quagga Virtual Terminal
+			Interface Shell (vtysh)
+		</flag>
+		<flag name="shell-access">
+			Enable user access to shell/telnet/ssh
+		</flag>
+		<flag name="tcp-zebra">
+			Enable TCP zserv interface on port 2600 for Zebra/protocol-daemon communication. Unix domain
+			sockets are chosen otherwise
+		</flag>
+		<flag name="isis">
+			Enable ISIS daemon
+		</flag>
+		<flag name="pim">
+			Enable PIM daemon
+		</flag>
+	</use>
+</pkgmetadata>
