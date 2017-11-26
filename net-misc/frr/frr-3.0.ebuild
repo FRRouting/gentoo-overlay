@@ -84,7 +84,8 @@ src_configure() {
 		$(use_enable fpm) \
 		$(use_enable doc) \
 		$(usex multipath $(use_enable multipath) '' '=64' '') \
-		$(usex ospfapi '--enable-opaque-lsa --enable-ospf-te --enable-ospfclient' '' '' '') \
+		$(use_enable ospfapi) \
+		$(use_enable ospfapi ospfclient) \
 		$(use_enable readline vtysh) \
 		$(use_with pam libpam) \
 		$(use_enable nhrpd) \
