@@ -62,9 +62,6 @@ pkg_setup() {
 
 src_prepare() {
 	eapply "${PATCHES[@]}"
-	if use rpki; then
-		eapply "${FILESDIR}/1481.patch"
-	fi
 	eapply_user
 	eautoreconf
 }
