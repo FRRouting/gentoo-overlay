@@ -31,5 +31,9 @@ find /frr-gentoo -regex '.*\.ebuild$' -type f | sort -n | while read ebuild; do
  else
   echo "=$pkg ~$keyword" >> /etc/portage/package.accept_keywords
  fi
- ( emerge -v "=$pkg" && emerge --depclean "=$pkg" && emerge --depclean ) || exit 2
+ if git log -n1 | grep -wqs "~~CI DEPCLEAN~~"; then
+  ( emerge -v "=$pkg" && emerge --depclean "=$pkg" && emerge --depclean ) || exit 2
+ else
+  ( emerge -v "=$pkg" && emerge --depclean "=$pkg" ) || exit 2
+ fi
 done
