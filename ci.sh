@@ -19,16 +19,17 @@ set -x
 emerge-webrsync
 cp /frr-gentoo/* /usr/portage/. -Rv
 
-ARCH="$1"
+keyword=$(emerge --info | grep "ACCEPT_KEYWORDS=" | sed 's/ACCEPT_KEYWORDS=//g; s/"//g' | cut -d " " -f 1)
 
-find /frr-gentoo -regex '.*\.ebuild$' -type f | while read ebuild; do
+find /frr-gentoo -regex '.*\.ebuild$' -type f | sort -n | while read ebuild; do
+ echo "=== Testing $ebuild"
  pkg=$(sed 's/\.ebuild//g'<<<"$ebuild" | rev | cut -d / -f 1,3 | rev)
  use=$( set +e; set +x; source $ebuild; echo $IUSE | sed 's/+//g ;s/ doc / /g' )
+ echo "=$pkg $use" >> /etc/portage/package.use/$(cut -d "/" -f 2 <<<"$pkg")
  if grep 9999 <<<"$pkg"; then
-  extra="**"
+  echo "=$pkg **" >> /etc/portage/package.accept_keywords
  else
-  extra=""
+  echo "=$pkg ~$keyword" >> /etc/portage/package.accept_keywords
  fi
- ( ACCEPT_KEYWORDS="amd64 ~amd64 $extra" USE="$use" emerge -v "=$pkg" && emerge --unmerge "=$pkg" ) || exit 2
+ ( emerge -v "=$pkg" && emerge --depclean "=$pkg" && emerge --depclean ) || exit 2
 done
-
