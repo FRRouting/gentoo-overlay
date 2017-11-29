@@ -5,15 +5,8 @@ EAPI=6
 
 inherit eutils flag-o-matic multilib readme.gentoo-r1 vcs-snapshot cmake-utils
 
-if [[ ${PV} != 9999 ]]; then
-	SRC_URI="https://github.com/rtrlib/rtrlib/archive/v${PV}.tar.gz"
-	KEYWORDS="~amd64 ~x86"
-else
-	inherit git-r3
-	SRC_URI=""
-	EGIT_REPO_URI="https://github.com/rtrlib/rtrlib.git"
-	KEYWORDS=""
-fi
+SRC_URI="https://github.com/rtrlib/rtrlib/archive/v${PV}.tar.gz"
+KEYWORDS="amd64 x86"
 
 DESCRIPTION="An open-source C implementation of the RPKI/Router Protocol client"
 HOMEPAGE="http://rtrlib.realmv6.org/"
