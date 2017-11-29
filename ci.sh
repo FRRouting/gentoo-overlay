@@ -20,6 +20,10 @@ emerge-webrsync
 cp /frr-gentoo/* /usr/portage/. -Rv
 
 keyword=$(emerge --info | grep "ACCEPT_KEYWORDS=" | sed 's/ACCEPT_KEYWORDS=//g; s/"//g' | cut -d " " -f 1)
+cpus=$(grep -c "^processor" /proc/cpuinfo)
+if [ "x$cpus" == "x" ]; then
+ cpus=1
+fi
 
 find /frr-gentoo -regex '.*\.ebuild$' -type f | sort -n | while read ebuild; do
  echo "=== Testing $ebuild"
@@ -32,8 +36,8 @@ find /frr-gentoo -regex '.*\.ebuild$' -type f | sort -n | while read ebuild; do
   echo "=$pkg ~$keyword" >> /etc/portage/package.accept_keywords
  fi
  if git log -n1 | grep -wqs "~~CI DEPCLEAN~~"; then
-  ( emerge -v "=$pkg" && emerge --depclean "=$pkg" && emerge --depclean ) || exit 2
+  ( MAKEOPTS="-j$cpus" emerge -v "=$pkg" && emerge --depclean "=$pkg" && emerge --depclean ) || exit 2
  else
-  ( emerge -v "=$pkg" && emerge --depclean "=$pkg" ) || exit 2
+  ( MAKEOPTS="-j$cpus" emerge -v "=$pkg" && emerge --depclean "=$pkg" ) || exit 2
  fi
 done
