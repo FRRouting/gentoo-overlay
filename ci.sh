@@ -17,7 +17,7 @@ set -e
 set -x
 
 emerge-webrsync
-cp /frr-gentoo/net-* /usr/portage/. -Rv
+cp /frr-gentoo/* /usr/portage/. -Rv
 
 ARCH="$1"
 
