@@ -1,0 +1,24 @@
+Title: Breaking Changes from patch version 1 onwards
+Author: Daniel 'f0o' Preussker <f0o@devilcode.org>
+Content-Type: text/plain
+Posted: 2017-12-11
+Revision: 1
+News-Item-Format: 1.0
+Display-If-Installed: net-misc/frr
+
+This overlay is currently undergoing some changes in all net-misc/frr ebuilds 
+to obtain official and stable states from FRRouting.
+As a result, ebuilds with the p1 version suffix are introduced which hold some 
+breaking changes.
+
+Changes are:
+	- License change from `GPL-2` to `GPL-2+`
+	- Creation of a new user, `frr`, instead of `quagga`
+          Please make sure you chown all configuration files and directories 
+          to the new user.
+	- Creation of a unified init script called `frr`
+          Please enable this initscript to ensure production upon reboot and
+          disable the old init scripts, if any.
+
+    PLEASE READ THROUGH ABOVE NEWS CAREFULLY, THESE CHANGES WILL BREAK YOUR
+        PRODUCTION IF NOT ACTED UPON. APOLOGIES FOR THE INCONVENIENCE.    
