@@ -1,0 +1,22 @@
+sudo: required
+services: docker
+language: bash
+env:
+  matrix:
+    - TARGET=portage
+    - TARGET=stage3-amd64
+    - TARGET=stage3-amd64-hardened
+    - TARGET=stage3-amd64-hardened-nomultilib
+    - TARGET=stage3-amd64-nomultilib
+    - TARGET=stage3-x86
+    - TARGET=stage3-x86-hardened
+
+before_install:
+  # Install docker 17.05.0 or later
+  - sudo apt-get update -qq
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+script:
+  - wget https://raw.githubusercontent.com/f0o/frr-gentoo/ci/ci.sh
+  - chmod +x ci.sh
+  - sudo docker pull docker pull gentoo/$TARGET
+  - sudo docker run -t -i -v $(pwd):/frr-gentoo gentoo/$TARGET /frr-gentoo/ci.sh
