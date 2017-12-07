@@ -46,7 +46,7 @@ fi
 
 if [ "x$ebuild" == "x" ]; then
  find /frr-gentoo -regex '.*\.ebuild$' -type f | sort -n | while read ebuild; do
- run_portage $(sed 's/\.ebuild//g'<<<"$ebuild" | rev | cut -d / -f 1,3 | rev)
+ run_portage $(sed 's/\.ebuild//g'<<<"$ebuild" | rev | cut -d / -f 1 | rev)
  done
 else
  run_portage "$ebuild" 
