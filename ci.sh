@@ -14,7 +14,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 run_portage() {
- echo "=== Testing $1"
+ echo "=== Testing $1 ==="
  ebuild=$(find /frr-gentoo -type f -name "$1.ebuild")
  pkg=$(sed 's/\.ebuild//g'<<<"$ebuild" | rev | cut -d / -f 1,3 | rev)
  use=$( set +e; set +x; source $ebuild; echo $IUSE | sed 's/+//g ;s/ doc / /g' )
@@ -25,10 +25,13 @@ run_portage() {
   echo "=$pkg ~$keyword" >> /etc/portage/package.accept_keywords
  fi
  if git log -n1 | grep -wqs "~~CI DEPCLEAN~~"; then
-  ( MAKEOPTS="-j$cpus" emerge -v "=$pkg" && emerge --depclean "=$pkg" && emerge --depclean ) || exit 2
+  ( MAKEOPTS="-j$cpus" emerge -v "=$pkg" && emerge --depclean "=$pkg" && emerge --depclean ) &> /portage.log
+  return $?
  else
-  ( MAKEOPTS="-j$cpus" emerge -v "=$pkg" && emerge --depclean "=$pkg" ) || exit 2
+  ( MAKEOPTS="-j$cpus" emerge -v "=$pkg" && emerge --depclean "=$pkg" ) &> /portage.log
+  return $?
  fi
+ echo "=== Passed $1 ==="
 }
 
 set -e
@@ -46,8 +49,16 @@ fi
 
 if [ "x$ebuild" == "x" ]; then
  find /frr-gentoo -regex '.*\.ebuild$' -type f | sort -n | while read ebuild; do
- run_portage $(sed 's/\.ebuild//g'<<<"$ebuild" | rev | cut -d / -f 1 | rev)
+  run_portage $(sed 's/\.ebuild//g'<<<"$ebuild" | rev | cut -d / -f 1 | rev)
+  if ! [ $? -eq 0 ]; then
+   cat /portage.log
+   exit 3
+  fi
  done
 else
- run_portage "$ebuild" 
+ run_portage "$ebuild"
+ if ! [ $? -eq 0 ]; then
+  cat /portage.log
+  exit 3
+ fi
 fi
