@@ -25,10 +25,10 @@ run_portage() {
   echo "=$pkg ~$keyword" >> /etc/portage/package.accept_keywords
  fi
  if git log -n1 | grep -wqs "~~CI DEPCLEAN~~"; then
-  ( MAKEOPTS="-j$cpus" emerge -v "=$pkg" && emerge --depclean "=$pkg" && emerge --depclean ) &| tee -a /portage.log | grep ">>> "
+  ( MAKEOPTS="-j$cpus" emerge -v "=$pkg" && emerge --depclean "=$pkg" && emerge --depclean ) 2>&1 | tee -a /portage.log | grep ">>> "
   return $?
  else
-  ( MAKEOPTS="-j$cpus" emerge -v "=$pkg" && emerge --depclean "=$pkg" ) &| tee -a /portage.log | grep ">>> "
+  ( MAKEOPTS="-j$cpus" emerge -v "=$pkg" && emerge --depclean "=$pkg" ) 2>&1 | tee -a /portage.log | grep ">>> "
   return $?
  fi
  echo "=== Passed $1 ==="
