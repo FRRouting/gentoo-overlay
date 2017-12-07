@@ -13,20 +13,9 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-set -e
-set -x
-
-emerge-webrsync
-cp /frr-gentoo/* /usr/portage/. -Rv
-
-keyword=$(emerge --info | grep "ACCEPT_KEYWORDS=" | sed 's/ACCEPT_KEYWORDS=//g; s/"//g' | cut -d " " -f 1)
-cpus=$(grep -c "^processor" /proc/cpuinfo)
-if [ "x$cpus" == "x" ]; then
- cpus=1
-fi
-
-find /frr-gentoo -regex '.*\.ebuild$' -type f | sort -n | while read ebuild; do
- echo "=== Testing $ebuild"
+run_portage() {
+ echo "=== Testing $1"
+ ebuild=$(find /frr-gentoo -type f -name "$1.ebuild")
  pkg=$(sed 's/\.ebuild//g'<<<"$ebuild" | rev | cut -d / -f 1,3 | rev)
  use=$( set +e; set +x; source $ebuild; echo $IUSE | sed 's/+//g ;s/ doc / /g' )
  echo "=$pkg $use" >> /etc/portage/package.use/$(cut -d "/" -f 2 <<<"$pkg")
@@ -40,4 +29,25 @@ find /frr-gentoo -regex '.*\.ebuild$' -type f | sort -n | while read ebuild; do
  else
   ( MAKEOPTS="-j$cpus" emerge -v "=$pkg" && emerge --depclean "=$pkg" ) || exit 2
  fi
-done
+}
+
+set -e
+set -x
+
+emerge-webrsync
+cp /frr-gentoo/* /usr/portage/. -Rv
+
+ebuild="$1"
+keyword=$(emerge --info | grep "ACCEPT_KEYWORDS=" | sed 's/ACCEPT_KEYWORDS=//g; s/"//g' | cut -d " " -f 1)
+cpus=$(grep -c "^processor" /proc/cpuinfo)
+if [ "x$cpus" == "x" ]; then
+ cpus=1
+fi
+
+if [ "x$ebuild" == "x" ]; then
+ find /frr-gentoo -regex '.*\.ebuild$' -type f | sort -n | while read ebuild; do
+ run_portage $(sed 's/\.ebuild//g'<<<"$ebuild" | rev | cut -d / -f 1,3 | rev)
+ done
+else
+ run_portage "$ebuild" 
+fi
