@@ -3,12 +3,42 @@ services: docker
 language: bash
 env:
   matrix:
-    - TARGET=stage3-amd64
-    - TARGET=stage3-amd64-hardened
-    - TARGET=stage3-amd64-hardened-nomultilib
-    - TARGET=stage3-amd64-nomultilib
-    - TARGET=stage3-x86
-    - TARGET=stage3-x86-hardened
+    - TARGET=stage3-amd64 EBUILD="frr-3.0"
+    - TARGET=stage3-amd64 EBUILD="frr-3.0.1"
+    - TARGET=stage3-amd64 EBUILD="frr-3.0.2"
+    - TARGET=stage3-amd64 EBUILD="frr-9999"
+    - TARGET=stage3-amd64 EBUILD="rtrlib-0.5.0"
+    - TARGET=stage3-amd64 EBUILD="rtrlib-9999"
+    - TARGET=stage3-amd64-hardened EBUILD="frr-3.0"
+    - TARGET=stage3-amd64-hardened EBUILD="frr-3.0.1"
+    - TARGET=stage3-amd64-hardened EBUILD="frr-3.0.2"
+    - TARGET=stage3-amd64-hardened EBUILD="frr-9999"
+    - TARGET=stage3-amd64-hardened EBUILD="rtrlib-0.5.0"
+    - TARGET=stage3-amd64-hardened EBUILD="rtrlib-9999"
+    - TARGET=stage3-amd64-hardened-nomultilib EBUILD="frr-3.0"
+    - TARGET=stage3-amd64-hardened-nomultilib EBUILD="frr-3.0.1"
+    - TARGET=stage3-amd64-hardened-nomultilib EBUILD="frr-3.0.2"
+    - TARGET=stage3-amd64-hardened-nomultilib EBUILD="frr-9999"
+    - TARGET=stage3-amd64-hardened-nomultilib EBUILD="rtrlib-0.5.0"
+    - TARGET=stage3-amd64-hardened-nomultilib EBUILD="rtrlib-9999"
+    - TARGET=stage3-amd64-nomultilib EBUILD="frr-3.0"
+    - TARGET=stage3-amd64-nomultilib EBUILD="frr-3.0.1"
+    - TARGET=stage3-amd64-nomultilib EBUILD="frr-3.0.2"
+    - TARGET=stage3-amd64-nomultilib EBUILD="frr-9999"
+    - TARGET=stage3-amd64-nomultilib EBUILD="rtrlib-0.5.0"
+    - TARGET=stage3-amd64-nomultilib EBUILD="rtrlib-9999"
+    - TARGET=stage3-x86 EBUILD="frr-3.0"
+    - TARGET=stage3-x86 EBUILD="frr-3.0.1"
+    - TARGET=stage3-x86 EBUILD="frr-3.0.2"
+    - TARGET=stage3-x86 EBUILD="frr-9999"
+    - TARGET=stage3-x86 EBUILD="rtrlib-0.5.0"
+    - TARGET=stage3-x86 EBUILD="rtrlib-9999"
+    - TARGET=stage3-x86-hardened EBUILD="frr-3.0"
+    - TARGET=stage3-x86-hardened EBUILD="frr-3.0.1"
+    - TARGET=stage3-x86-hardened EBUILD="frr-3.0.2"
+    - TARGET=stage3-x86-hardened EBUILD="frr-9999"
+    - TARGET=stage3-x86-hardened EBUILD="rtrlib-0.5.0"
+    - TARGET=stage3-x86-hardened EBUILD="rtrlib-9999"
 
 before_install:
   # Install docker 17.05.0 or later
@@ -18,4 +48,4 @@ script:
   - wget https://raw.githubusercontent.com/f0o/frr-gentoo/ci/ci.sh
   - chmod +x ci.sh
   - sudo docker pull gentoo/$TARGET
-  - sudo docker run -t -i -v $(pwd):/frr-gentoo gentoo/$TARGET /frr-gentoo/ci.sh
+  - sudo docker run -t -i -v $(pwd):/frr-gentoo gentoo/$TARGET /frr-gentoo/ci.sh $EBUILD
