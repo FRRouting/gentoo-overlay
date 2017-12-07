@@ -3,7 +3,6 @@ services: docker
 language: bash
 env:
   matrix:
-    - TARGET=portage
     - TARGET=stage3-amd64
     - TARGET=stage3-amd64-hardened
     - TARGET=stage3-amd64-hardened-nomultilib
@@ -18,5 +17,5 @@ before_install:
 script:
   - wget https://raw.githubusercontent.com/f0o/frr-gentoo/ci/ci.sh
   - chmod +x ci.sh
-  - sudo docker pull docker pull gentoo/$TARGET
+  - sudo docker pull gentoo/$TARGET
   - sudo docker run -t -i -v $(pwd):/frr-gentoo gentoo/$TARGET /frr-gentoo/ci.sh
