@@ -8,7 +8,7 @@ Display-If-Installed: net-misc/frr
 
 This overlay is currently undergoing some changes in all net-misc/frr ebuilds 
 to obtain official and stable states from FRRouting.
-As a result, ebuilds with the p1 version suffix are introduced which hold some 
+As a result, ebuilds with the r1 version suffix is introduced which hold some 
 breaking changes.
 
 Changes are:
