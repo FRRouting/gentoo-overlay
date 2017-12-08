@@ -43,4 +43,4 @@ env:
 script:
   - wget https://raw.githubusercontent.com/f0o/frr-gentoo/ci/ci.sh
   - chmod +x ci.sh
-  - travis_wait 30 ./ci.sh _preflight
+  - travis_wait 60 ./ci.sh _preflight
