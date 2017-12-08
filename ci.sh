@@ -46,7 +46,7 @@ run_preflight() {
   sudo apt-get update -qq
   sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
   sudo docker pull gentoo/$TARGET
-  sudo docker run -t -i -v $(pwd):/frr-gentoo gentoo/$TARGET /frr-gentoo/ci.sh $EBUILD
+  exec sudo docker run -t -i -v $(pwd):/frr-gentoo gentoo/$TARGET /frr-gentoo/ci.sh $EBUILD
  else
   echo "Skipping stable ebuild"
  fi
