@@ -39,6 +39,11 @@ set -x
 
 emerge-webrsync
 cp /frr-gentoo/* /usr/portage/. -Rv
+profile=$(ls -la /etc/portage/make.profile | rev | cut -d " " -f 1 | rev)
+if grep '^../../usr/portage/gentoo/' <<< "$profile"; then
+ rm -v /etc/portage/make.profile
+ ln -v -s $(sed 's!../../usr/portage/gentoo/!/usr/portage/!' <<<"$profile") /etc/portage/make.profile
+fi
 
 ebuild="$1"
 keyword=$(emerge --info | grep "ACCEPT_KEYWORDS=" | sed 's/ACCEPT_KEYWORDS=//g; s/"//g' | cut -d " " -f 1)
