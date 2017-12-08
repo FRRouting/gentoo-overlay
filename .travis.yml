@@ -41,4 +41,6 @@ env:
     - TARGET=stage3-x86-hardened EBUILD="rtrlib-9999"
 
 script:
-  - curl https://raw.githubusercontent.com/f0o/frr-gentoo/ci/ci.sh | bash -s _preflight
+  - wget https://raw.githubusercontent.com/f0o/frr-gentoo/ci/ci.sh
+  - chmod +x ci.sh
+  - ./ci.sh _preflight
