@@ -55,6 +55,11 @@ run_preflight() {
 set -e
 set -x
 
+if [ "x$ebuild" == "x_preflight" ]; then
+ run_preflight
+ exit $?
+fi
+
 profile=$(ls -la /etc/portage/make.profile | rev | cut -d " " -f 1 | rev)
 if grep '^../../usr/portage/gentoo/' <<< "$profile"; then
  rm -v /etc/portage/make.profile
@@ -71,9 +76,7 @@ if [ "x$cpus" == "x" ]; then
  cpus=1
 fi
 
-if [ "x$ebuild" == "x_preflight" ]; then
- run_preflight
-elif [ "x$ebuild" == "x" ]; then
+if [ "x$ebuild" == "x" ]; then
  find /frr-gentoo -regex '.*\.ebuild$' -type f | sort -n | while read ebuild; do
   run_portage $(sed 's/\.ebuild//g'<<<"$ebuild" | rev | cut -d / -f 1 | rev)
   if ! [ $? -eq 0 ]; then
