@@ -37,7 +37,7 @@ run_preflight() {
  tkeyword=$( cut -d - -f 2 <<<"$TARGET" )
  skip=0;
  for k in $keywords; do
-  if [ "$k" == "$tkeyword" ] && ! grep -qs "~" <<< "$k"; then
+  if [ "$k" == "$tkeyword" ] && [ "$TRAVIS_EVENT_TYPE" != "cron" ] then
    skip=1
    break;
   fi
