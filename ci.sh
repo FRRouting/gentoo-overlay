@@ -55,7 +55,7 @@ run_preflight() {
 set -e
 set -x
 
-if [ "x$ebuild" == "x_preflight" ]; then
+if [ "x$1" == "x_preflight" ]; then
  run_preflight
  exit $?
 fi
