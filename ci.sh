@@ -38,6 +38,7 @@ cp /frr-gentoo/* /usr/portage/. -Rv
 profile=$(ls -la /etc/portage/make.profile | rev | cut -d " " -f 1 | rev)
 if grep '^../../usr/portage/gentoo/' <<< "$profile"; then
  rm -v /etc/portage/make.profile
+ sed -i 's/^PORTDIR/#PORTDIR/' /etc/portage/make.conf
  ln -v -s $(sed 's!../../usr/portage/gentoo/!/usr/portage/!' <<<"$profile") /etc/portage/make.profile
 fi
 
