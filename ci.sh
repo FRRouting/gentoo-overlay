@@ -32,7 +32,7 @@ run_portage() {
 
 run_preflight() {
  echo "=== Running Pre-Flight Checks ==="
- ebuild=$(find /frr-gentoo -type f -name "$EBUILD.ebuild")
+ ebuild=$(find . -type f -name "$EBUILD.ebuild")
  keywords=$( set +e; set +x; source $ebuild; echo $KEYWORDS )
  tkeyword=$( cut -d - -f 2 <<<"$TARGET" )
  skip=0;
