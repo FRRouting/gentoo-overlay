@@ -24,10 +24,32 @@ run_portage() {
  else
   echo "=$pkg ~$keyword" >> /etc/portage/package.accept_keywords
  fi
- ( MAKEOPTS="-j$cpus" emerge -v "=$pkg" && emerge --depclean "=$pkg" ) 2>&1 | tee -a /portage.log | grep ">>> "
+ ( set +e; set +x; MAKEOPTS="-j$cpus" emerge -v "=$pkg" && emerge --depclean "=$pkg" ) 2>&1 | tee -a /portage.log | grep ">>> "
  ret=$?
  echo "=== Built: $1 / Exit: $ret ==="
  return $ret
+}
+
+run_preflight() {
+ echo "=== Running Pre-Flight Checks ==="
+ ebuild=$(find /frr-gentoo -type f -name "$EBUILD.ebuild")
+ keywords=$( set +e; set +x; source $ebuild; echo $KEYWORDS )
+ tkeyword=$( cut -d - -f 2 <<<"$TARGET" )
+ skip=0;
+ for k in $keywords; do
+  if [ "$k" == "$tkeyword" ] && ! grep -qs "~" <<< "$k"; then
+   skip=1
+   break;
+  fi
+ done
+ if [ $skip -eq 0 ]; then
+  sudo apt-get update -qq
+  sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+  sudo docker pull gentoo/$TARGET
+  sudo docker run -t -i -v $(pwd):/frr-gentoo gentoo/$TARGET /frr-gentoo/ci.sh $EBUILD
+ else
+  echo "Skipping stable ebuild"
+ fi
 }
 
 set -e
@@ -49,7 +71,9 @@ if [ "x$cpus" == "x" ]; then
  cpus=1
 fi
 
-if [ "x$ebuild" == "x" ]; then
+if [ "x$ebuild" == "x_preflight" ]; then
+ run_preflight
+elif [ "x$ebuild" == "x" ]; then
  find /frr-gentoo -regex '.*\.ebuild$' -type f | sort -n | while read ebuild; do
   run_portage $(sed 's/\.ebuild//g'<<<"$ebuild" | rev | cut -d / -f 1 | rev)
   if ! [ $? -eq 0 ]; then
