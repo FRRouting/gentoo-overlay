@@ -48,7 +48,7 @@ run_preflight() {
   sudo docker run -i -v $(pwd):/frr-gentoo gentoo/$TARGET /frr-gentoo/ci.sh $EBUILD &
   pid="$!"
   while kill -0 $pid; do
-   echo '>>> Jenkins Timeout buster'
+   echo '>>> Jenkins Timeout buster: ' $(cat /proc/loadavg)
    sleep 60
   done
   wait $pid
