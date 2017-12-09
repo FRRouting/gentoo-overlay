@@ -47,12 +47,12 @@ run_preflight() {
   sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
   sudo docker run -i -v $(pwd):/frr-gentoo gentoo/$TARGET /frr-gentoo/ci.sh $EBUILD &
   pid="$!"
-  set +e
+  set +x
   while sudo kill -0 $pid >/dev/null; do
    echo '>>> Travis Timeout buster: ' $(cat /proc/loadavg)
    sleep 60
   done
-  set -e
+  set -x
   wait $pid
   return $?
  else
