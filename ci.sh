@@ -45,7 +45,14 @@ run_preflight() {
  if [ $skip -eq 0 ]; then
   sudo apt-get update -qq
   sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
-  sudo docker run -i -v $(pwd):/frr-gentoo gentoo/$TARGET /frr-gentoo/ci.sh $EBUILD
+  sudo docker run -i -v $(pwd):/frr-gentoo gentoo/$TARGET /frr-gentoo/ci.sh $EBUILD &
+  pid="$!"
+  while kill -0 $pid; do
+   echo '>>> Jenkins Timeout buster'
+   sleep 60
+  done
+  wait $pid
+  return $?
  else
   echo "Skipping stable ebuild"
  fi
