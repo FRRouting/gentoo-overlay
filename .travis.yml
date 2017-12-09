@@ -40,12 +40,7 @@ env:
     - TARGET=stage3-x86-hardened EBUILD="rtrlib-0.5.0"
     - TARGET=stage3-x86-hardened EBUILD="rtrlib-9999"
 
-before_install:
-  # Install docker 17.05.0 or later
-  - sudo apt-get update -qq
-  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
 script:
   - wget https://raw.githubusercontent.com/f0o/frr-gentoo/ci/ci.sh
   - chmod +x ci.sh
-  - sudo docker pull gentoo/$TARGET
-  - sudo docker run -t -i -v $(pwd):/frr-gentoo gentoo/$TARGET /frr-gentoo/ci.sh $EBUILD
+  - travis_wait 60 ./ci.sh _preflight
