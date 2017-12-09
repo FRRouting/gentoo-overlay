@@ -47,7 +47,7 @@ run_preflight() {
   sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
   sudo docker run -i -v $(pwd):/frr-gentoo gentoo/$TARGET /frr-gentoo/ci.sh $EBUILD &
   pid="$!"
-  while kill -0 $pid; do
+  while sudo kill -0 $pid >/dev/null; do
    echo '>>> Jenkins Timeout buster: ' $(cat /proc/loadavg)
    sleep 60
   done
