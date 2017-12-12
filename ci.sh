@@ -14,6 +14,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 run_portage() {
+ set +e; set +x;
  echo "=== Building: $1 ==="
  ebuild=$(find /frr-gentoo -type f -name "$1.ebuild")
  pkg=$(sed 's/\.ebuild//g'<<<"$ebuild" | rev | cut -d / -f 1,3 | rev)
@@ -24,7 +25,7 @@ run_portage() {
  else
   echo "=$pkg ~$keyword" >> /etc/portage/package.accept_keywords
  fi
- ( set +e; set +x; MAKEOPTS="-j$cpus" emerge -v "=$pkg" && emerge --depclean "=$pkg" ) 2>&1 | tee -a /portage.log | grep ">>> "
+ MAKEOPTS="-j$cpus" emerge -v "=$pkg"
  ret=$?
  echo "=== Built: $1 / Exit: $ret ==="
  return $ret
@@ -93,9 +94,9 @@ if [ "x$ebuild" == "x" ]; then
   fi
  done
 else
- run_portage "$ebuild"
- if ! [ $? -eq 0 ]; then
-  cat /portage.log
+ run_portage "$ebuild" 2>&1 | tee -a /portage.log | grep -e ">>> " -e "=== "
+ if ! [ ${PIPESTATUS[0]} -eq 0 ]; then
+  tail -n 75 /portage.log
   exit 3
  fi
 fi
