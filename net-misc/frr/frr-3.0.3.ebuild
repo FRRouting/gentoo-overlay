@@ -6,7 +6,7 @@ EAPI=6
 inherit autotools eutils flag-o-matic multilib pam readme.gentoo-r1 systemd tmpfiles user vcs-snapshot
 
 SRC_URI="https://github.com/FRRouting/frr/archive/${P}.tar.gz"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 
 DESCRIPTION="Free Range Routing Protocol Suite, fork of Quagga"
 HOMEPAGE="https://frrouting.org/"
