@@ -6,40 +6,81 @@
 		<name>Daniel 'f0o' Preussker</name>
 	</maintainer>
 	<use>
+		<flag name="doc">
+			Build documentation
+		</flag>
+		<flag name="bgp">
+			Enable bgpd
+		</flag>
+		<flag name="rip">
+			Enable ripd
+		</flag>
+		<flag name="ospf">
+			Enable ospfd
+		</flag>
+		<flag name="ldp">
+			Enable ldpd
+		</flag>
+		<flag name="nhrp">
+			Build Next Hop Resolution Protocol daemon
+		</flag>
+		<flag name="eigrp">
+			Enable eigrpd
+		</flag>
+		<flag name="babel">
+			Enable babeld
+		</flag>
+		<flag name="watchfrr">
+			Build Watchfrr utility
+		</flag>
+		<flag name="isis">
+			Enable pimd
+		</flag>
+		<flag name="pim">
+			Enable pimd
+		</flag>
+		<flag name="pbr">
+			Enable pbrd
+		</flag>
+		<flag name="fabric">
+			Enable fabricd
+		</flag>
+		<flag name="snmp">
+			Enable SNMP support
+		</flag>
+		<flag name="systemd">
+			Enable systemd support
+		</flag>
 		<flag name="fpm">
 			Enable Forwarding Plane Manager support
+		</flag>
+		<flag name="rpki">
+			Enable RPKI
 		</flag>
 		<flag name="multipath">
 			Enable multipath routes support for any number of routes
 		</flag>
-		<flag name="nhrpd">
-			Build Next Hop Resolution Protocol daemon
-		</flag>
-		<flag name="ospfapi">
-			Enable OSPFAPI support for client applications accessing the OSPF link state database
-		</flag>
 		<flag name="pam">
-			Add support for PAM (via <pkg>sys-libs/pam</pkg>) to the Quagga Virtual Terminal Interface
+			Add support for PAM (via <pkg>sys-libs/pam</pkg>) to the Quagga Virtual Terminal 
+Interface
 			Shell (vtysh); if the readline USE flag is disabled, this flag is ignored
 		</flag>
 		<flag name="protobuf">
 			Enable support for <pkg>dev-libs/protobuf</pkg>
 		</flag>
 		<flag name="readline">
-			Enable support for <pkg>sys-libs/readline</pkg> to provide the Quagga Virtual Terminal
+			Enable support for <pkg>sys-libs/readline</pkg> to provide the Quagga Virtual 
+Terminal
 			Interface Shell (vtysh)
 		</flag>
 		<flag name="shell-access">
 			Enable user access to shell/telnet/ssh
 		</flag>
-		<flag name="isis">
-			Enable ISIS daemon
+		<flag name="nhrpd">
+			Build Next Hop Resolution Protocol daemon (frr lower/equal 5.0)
 		</flag>
-		<flag name="pim">
-			Enable PIM daemon
-		</flag>
-		<flag name="rpki">
-			Enable RPKI support
+		<flag name="ospfapi">
+			Build OSPFAPI support (frr lower/equal 5.0)
 		</flag>
 	</use>
 </pkgmetadata>
