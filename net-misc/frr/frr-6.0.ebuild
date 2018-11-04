@@ -113,7 +113,6 @@ src_configure() {
 		$(usex multipath $(use_enable multipath) '' '=64' '') \
 		$(use_enable readline vtysh) \
 		$(use_with pam libpam) \
-		$(use_enable nhrpd) \
 		$(use_enable protobuf) \
 		$(use_enable shell-access)
 }

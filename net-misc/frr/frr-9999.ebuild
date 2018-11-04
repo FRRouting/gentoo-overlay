@@ -113,7 +113,6 @@ src_configure() {
 		$(usex multipath $(use_enable multipath) '' '=64' '') \
 		$(use_enable readline vtysh) \
 		$(use_with pam libpam) \
-		$(use_enable nhrpd) \
 		$(use_enable protobuf) \
 		$(use_enable shell-access)
 }
@@ -129,12 +128,13 @@ src_install() {
 
 	# Install systemd-related stuff, bug #553136
 	dotmpfiles "${FILESDIR}/systemd/frr.conf"
-	systemd_dounit "${FILESDIR}/systemd/zebra.service"
+	use systemd && systemd_dounit "${FILESDIR}/systemd/zebra.service"
 
 	# install zebra as a file, symlink the rest
-	newinitd "${FILESDIR}"/frr.init zebra
+	use sysemd || newinitd "${FILESDIR}"/frr.init zebra
 
-	for service in 	$(usex bgp bgpd) \
+	for service in zebra \
+			$(usex bgp bgpd) \
 			$(usex rip ripd) \
 			$(usex ospf ospfd) \
 			$(usex ldp ldpd) \
@@ -148,8 +148,8 @@ src_install() {
 			$(usex ipv6 $(usex ospf ospf6d)) \
 			$(usex ipv6 $(usex rip ripngd)) \
 	; do
-		dosym zebra /etc/init.d/${service}
-		systemd_dounit "${FILESDIR}/systemd/${service}.service"
+		use systemd || dosym zebra /etc/init.d/${service}
+		use systemd && systemd_dounit "${FILESDIR}/systemd/${service}.service"
 	done
 
 	use readline && use pam && newpamd "${FILESDIR}/frr.pam" frr
