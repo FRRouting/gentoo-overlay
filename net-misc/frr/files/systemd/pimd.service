@@ -11,7 +11,7 @@ PIDFile=/run/frr/pimd.pid
 ExecStart=/usr/sbin/pimd -d
 ExecReload=/bin/kill -HUP $MAINPID
 SuccessExitStatus=1
-Restart=on-abort
+Restart=always
 
 [Install]
 WantedBy=multi-user.target

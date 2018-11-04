@@ -10,7 +10,7 @@ Type=forking
 PIDFile=/run/frr/ospf6d.pid
 ExecStart=/usr/sbin/ospf6d -d
 ExecReload=/bin/kill -HUP $MAINPID
-Restart=on-abort
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
