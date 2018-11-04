@@ -10,7 +10,7 @@ Type=forking
 PIDFile=/run/frr/ripd.pid
 ExecStart=/usr/sbin/ripd -d
 ExecReload=/bin/kill -HUP $MAINPID
-Restart=on-abort
+Restart=always
 
 [Install]
 WantedBy=multi-user.target

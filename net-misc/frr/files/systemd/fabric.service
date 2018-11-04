@@ -10,7 +10,7 @@ Type=forking
 PIDFile=/run/frr/fabricd.pid
 ExecStart=/usr/sbin/fabricd -d
 ExecReload=/bin/kill -HUP $MAINPID
-Restart=on-abort
+Restart=always
 
 [Install]
 WantedBy=multi-user.target

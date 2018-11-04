@@ -10,7 +10,7 @@ Type=forking
 PIDFile=/run/frr/pbrd.pid
 ExecStart=/usr/sbin/pbrd -d
 ExecReload=/bin/kill -HUP $MAINPID
-Restart=on-abort
+Restart=always
 
 [Install]
 WantedBy=multi-user.target

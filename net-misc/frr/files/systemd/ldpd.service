@@ -10,7 +10,7 @@ Type=forking
 PIDFile=/run/frr/ldpd.pid
 ExecStart=/usr/sbin/ldpd -d
 ExecReload=/bin/kill -HUP $MAINPID
-Restart=on-abort
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
