@@ -21,7 +21,7 @@ HOMEPAGE="https://frrouting.org/"
 LICENSE="GPL-2"
 SLOT="0"
 
-IUSE="caps doc elibc_glibc ipv6 +readline +bgp +rip +ospf +ldp +nhrp +eigrp +babel watchfrr +isis +pim +pbr +fabric +snmp systemd fpm rpki multipath pam protobuf shell-access"
+IUSE="caps doc elibc_glibc ipv6 +readline +bgp +rip +ospf +ldp +nhrp +eigrp +babel watchfrr +isis +pim +pbr +snmp systemd fpm rpki multipath pam protobuf shell-access"
 REQUIRED_USE="
 	rpki? ( bgp )
 "
@@ -105,7 +105,6 @@ src_configure() {
 		$(use_enable isis isisd) \
 		$(use_enable pim pimd) \
 		$(use_enable pbr pbrd) \
-		$(use_enable fabric fabricd) \
 		$(use_enable snmp) \
 		$(use_enable systemd) \
 		$(use_enable fpm) \
@@ -131,7 +130,7 @@ src_install() {
 	use systemd && systemd_dounit "${FILESDIR}/systemd/zebra.service"
 
 	# install zebra as a file, symlink the rest
-	use sysemd || newinitd "${FILESDIR}"/frr.init zebra
+	use systemd || newinitd "${FILESDIR}"/frr.init zebra
 
 	for service in zebra staticd \
 			$(usex bgp bgpd) \
@@ -144,7 +143,6 @@ src_install() {
 			$(usex isis isisd) \
 			$(usex pim pimd) \
 			$(usex pbr pbrd) \
-			$(usex fabric fabricd) \
 			$(usex ipv6 $(usex ospf ospf6d)) \
 			$(usex ipv6 $(usex rip ripngd)) \
 	; do
