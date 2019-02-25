@@ -1,6 +1,6 @@
 [Unit]
-Description=pbr daemon
-Documentation=man:pbrd(8) man:zebra(8)
+Description=static daemon
+Documentation=man:staticd(8) man:zebra(8)
 BindsTo=zebra.service
 After=network.target zebra.service
 ConditionPathExists=/etc/frr/staticd.conf
