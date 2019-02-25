@@ -1,5 +1,5 @@
 [Unit]
-Description=pbr daemon
+Description=static daemon
 Documentation=man:pbrd(8) man:zebra(8)
 BindsTo=zebra.service
 After=network.target zebra.service
