@@ -7,7 +7,7 @@ inherit cmake-utils
 
 if [[ ${PV} != 9999 ]]; then
 	SRC_URI="https://github.com/CESNET/${PN}/archive/v${PVR}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="amd64 x86"
 else
 	inherit git-r3
 	SRC_URI=""
@@ -20,7 +20,6 @@ HOMEPAGE="https://github.com/CESNET/libyang"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="amd64"
 
 # Fix source directory naming: GitHub likes to append the revision to
 # the source directory as well.
