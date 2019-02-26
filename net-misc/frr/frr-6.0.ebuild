@@ -7,7 +7,7 @@ inherit autotools eutils flag-o-matic multilib pam readme.gentoo-r1 systemd tmpf
 
 if [[ ${PV} != 9999 ]]; then
 	SRC_URI="https://github.com/FRRouting/frr/archive/${P}.tar.gz"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="amd64 x86"
 else
 	inherit git-r3
 	SRC_URI=""
