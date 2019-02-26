@@ -6,7 +6,7 @@ EAPI=7
 inherit cmake-utils
 
 if [[ ${PV} != 9999 ]]; then
-	SRC_URI="https://github.com/CESNET/${PN}/archive/v${PVR}.tar.gz -> ${P}.tar.gz"
+	SRC_URI="https://github.com/CESNET/${PN}/archive/v${PVR}.tar.gz -> ${PF}.tar.gz"
 	KEYWORDS="amd64 x86"
 else
 	inherit git-r3
