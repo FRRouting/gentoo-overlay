@@ -132,7 +132,7 @@ src_install() {
 	use systemd && systemd_dounit "${FILESDIR}/systemd/zebra.service"
 
 	# install zebra as a file, symlink the rest
-	use sysemd || newinitd "${FILESDIR}"/frr.init zebra
+	use systemd || newinitd "${FILESDIR}"/frr.init zebra
 
 	for service in zebra staticd \
 			$(usex bgp bgpd) \
