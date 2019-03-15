@@ -11,7 +11,7 @@ if [[ ${PV} != 9999 ]]; then
 else
 	inherit git-r3
 	SRC_URI=""
-	EGIT_REPO_URI="https://github.com/rtrlib/rtrlib.git"
+	EGIT_REPO_URI="https://github.com/CESNET/libyang.git"
 	KEYWORDS=""
 fi
 
