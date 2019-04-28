@@ -38,7 +38,7 @@ COMMON_DEPEND="
 	)
 	snmp? ( net-analyzer/net-snmp )
 	!elibc_glibc? ( dev-libs/libpcre )
-	rpki? ( >=net-libs/rtrlib-0.5.0 )
+	rpki? ( >=net-libs/rtrlib-0.6.3[ssh] )
 	>=net-libs/libyang-0.16-r3"
 DEPEND="${COMMON_DEPEND}
 	dev-perl/XML-LibXML
