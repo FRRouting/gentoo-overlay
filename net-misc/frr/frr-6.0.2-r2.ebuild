@@ -7,7 +7,7 @@ inherit autotools eutils flag-o-matic multilib pam readme.gentoo-r1 systemd tmpf
 
 if [[ ${PV} != 9999 ]]; then
 	SRC_URI="https://github.com/FRRouting/frr/archive/${P}.tar.gz"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="amd64 x86"
 else
 	inherit git-r3
 	SRC_URI=""
@@ -21,7 +21,7 @@ HOMEPAGE="https://frrouting.org/"
 LICENSE="GPL-2"
 SLOT="0"
 
-IUSE="caps doc elibc_glibc ipv6 +readline +bgp +rip +ospf +ldp +nhrp +eigrp +babel watchfrr +isis +pim +pbr +fabric +snmp systemd fpm rpki multipath pam protobuf shell-access"
+IUSE="caps doc elibc_glibc ipv6 +readline +bgp +rip +ospf +ldp +nhrp +eigrp +babel watchfrr +isis +pim +pbr +snmp systemd fpm rpki multipath pam protobuf shell-access"
 REQUIRED_USE="
 	rpki? ( bgp )
 "
@@ -38,8 +38,7 @@ COMMON_DEPEND="
 	)
 	snmp? ( net-analyzer/net-snmp )
 	!elibc_glibc? ( dev-libs/libpcre )
-	rpki? ( >=net-libs/rtrlib-0.6.3[ssh] )
-	>=net-libs/libyang-0.16-r3"
+	rpki? ( >=net-libs/rtrlib-0.5.0 )"
 DEPEND="${COMMON_DEPEND}
 	dev-perl/XML-LibXML
 	sys-apps/gawk
@@ -106,7 +105,6 @@ src_configure() {
 		$(use_enable isis isisd) \
 		$(use_enable pim pimd) \
 		$(use_enable pbr pbrd) \
-		$(use_enable fabric fabricd) \
 		$(use_enable snmp) \
 		$(use_enable systemd) \
 		$(use_enable fpm) \
@@ -145,7 +143,6 @@ src_install() {
 			$(usex isis isisd "") \
 			$(usex pim pimd "") \
 			$(usex pbr pbrd "") \
-			$(usex fabric fabricd "") \
 			$(usex ipv6 $(usex ospf ospf6d "") "") \
 			$(usex ipv6 $(usex rip ripngd "") "") \
 	; do
