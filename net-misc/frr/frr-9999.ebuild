@@ -21,7 +21,7 @@ HOMEPAGE="https://frrouting.org/"
 LICENSE="GPL-2"
 SLOT="0"
 
-IUSE="caps doc elibc_glibc ipv6 +readline +bgp +rip +ospf +ldp +nhrp +eigrp +babel watchfrr +isis +pim +pbr +fabric +snmp systemd fpm rpki multipath pam protobuf shell-access"
+IUSE="caps doc elibc_glibc ipv6 +readline +bgp +rip +ospf +ldp +nhrp +eigrp +babel watchfrr +isis +pim +pbr +fabric +snmp systemd fpm rpki multipath pam protobuf shell-access +sanitize"
 REQUIRED_USE="
 	rpki? ( bgp )
 "
@@ -39,6 +39,7 @@ COMMON_DEPEND="
 	snmp? ( net-analyzer/net-snmp )
 	!elibc_glibc? ( dev-libs/libpcre )
 	rpki? ( >=net-libs/rtrlib-0.6.3[ssh] )
+	sanitize? ( sys-devel/gcc:*[sanitize] )
 	>=net-libs/libyang-0.16-r3"
 DEPEND="${COMMON_DEPEND}
 	dev-perl/XML-LibXML
@@ -86,8 +87,8 @@ src_configure() {
 		--sysconfdir=/etc/frr \
 		--localstatedir=/run/frr \
 		--disable-static \
-		--enable-address-sanitizer \
 		--enable-irdp \
+		$(use_enable sanitize address-sanitizer) \
 		$(use_enable caps capabilities) \
 		$(use_enable !elibc_glibc pcreposix) \
 		$(use_enable doc) \
@@ -135,19 +136,19 @@ src_install() {
 	use systemd || newinitd "${FILESDIR}"/frr.init zebra
 
 	for service in zebra staticd \
-			$(usex bgp bgpd) \
-			$(usex rip ripd) \
-			$(usex ospf ospfd) \
-			$(usex ldp ldpd) \
-			$(usex nhrp nhrpd) \
-			$(usex eigrp eigrpd) \
-			$(usex babel babeld) \
-			$(usex isis isisd) \
-			$(usex pim pimd) \
-			$(usex pbr pbrd) \
-			$(usex fabric fabricd) \
-			$(usex ipv6 $(usex ospf ospf6d)) \
-			$(usex ipv6 $(usex rip ripngd)) \
+			$(usex bgp bgpd "") \
+			$(usex rip ripd "") \
+			$(usex ospf ospfd "") \
+			$(usex ldp ldpd "") \
+			$(usex nhrp nhrpd "") \
+			$(usex eigrp eigrpd "") \
+			$(usex babel babeld "") \
+			$(usex isis isisd "") \
+			$(usex pim pimd "") \
+			$(usex pbr pbrd "") \
+			$(usex fabric fabricd "") \
+			$(usex ipv6 $(usex ospf ospf6d "") "") \
+			$(usex ipv6 $(usex rip ripngd "") "") \
 	; do
 		use systemd || dosym zebra /etc/init.d/${service}
 		use systemd && systemd_dounit "${FILESDIR}/systemd/${service}.service"

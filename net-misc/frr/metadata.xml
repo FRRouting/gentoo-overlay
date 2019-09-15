@@ -82,5 +82,8 @@ Terminal
 		<flag name="ospfapi">
 			Build OSPFAPI support (frr lower/equal 5.0)
 		</flag>
+		<flag name="sanitize">
+			Enable Address Sanitizer (requires GCC with sanitize)
+		</flag>
 	</use>
 </pkgmetadata>
