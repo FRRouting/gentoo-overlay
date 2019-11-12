@@ -132,7 +132,7 @@ src_install() {
 	# install zebra as a file, symlink the rest
 	use systemd || newinitd "${FILESDIR}"/frr.init zebra
 
-	for service in zebra staticd \
+	for service in staticd \
 			$(usex bgp bgpd "") \
 			$(usex rip ripd "") \
 			$(usex ospf ospfd "") \
