@@ -30,6 +30,7 @@ src_configure() {
 	local mycmakeargs=(
 		-DENABLE_LYD_PRIV=ON
 		-DCMAKE_BUILD_TYPE=Release
+		-DENABLE_CACHE=OFF
 	)
 	cmake-utils_src_configure
 }
