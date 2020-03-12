@@ -6,6 +6,7 @@ EAPI=7
 inherit cmake-utils
 
 if [[ ${PV} != 9999 ]]; then
+	PVR="0.16-r3"
 	SRC_URI="https://github.com/CESNET/${PN}/archive/v${PVR}.tar.gz -> ${PF}.tar.gz"
 	KEYWORDS="amd64 x86"
 else
@@ -29,6 +30,7 @@ src_configure() {
 	local mycmakeargs=(
 		-DENABLE_LYD_PRIV=ON
 		-DCMAKE_BUILD_TYPE=Release
+		-DENABLE_CACHE=OFF
 	)
 	cmake-utils_src_configure
 }
