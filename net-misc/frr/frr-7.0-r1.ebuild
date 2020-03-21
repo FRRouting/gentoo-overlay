@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -134,7 +134,9 @@ src_install() {
 	# install zebra as a file, symlink the rest
 	use systemd || newinitd "${FILESDIR}"/frr.init zebra
 
-	for service in zebra staticd \
+	newinitd "${FILESDIR}/${PN}.init" zebra
+
+	for service in staticd \
 			$(usex bgp bgpd "") \
 			$(usex rip ripd "") \
 			$(usex ospf ospfd "") \
