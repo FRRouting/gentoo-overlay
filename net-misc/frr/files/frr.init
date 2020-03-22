@@ -4,7 +4,7 @@
 
 : ${CFGFILE:=/etc/frr/${SVCNAME}.conf}
 
-pidfile=/run/frr/${SVCNAME}.pid
+pidfile=/run/frr-${SVCNAME}.pid
 
 command=/usr/sbin/${SVCNAME}
 command_args="-f ${CFGFILE} ${EXTRA_OPTS}"
