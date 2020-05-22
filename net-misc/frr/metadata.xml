@@ -85,5 +85,8 @@ Terminal
 		<flag name="sanitize">
 			Enable Address Sanitizer (requires GCC with sanitize)
 		</flag>
+		<flag name="realms">
+			Enable Route Realms
+		</flag>
 	</use>
 </pkgmetadata>
