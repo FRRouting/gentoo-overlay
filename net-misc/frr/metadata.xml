@@ -9,6 +9,10 @@
 		<flag name="doc">
 			Build documentation
 		</flag>
+		<flag name="bfd">
+                        Enable FRR BFD daemon (disables Cumulus PTM-BFD
+                        external daemon suport)
+		</flag>
 		<flag name="bgp">
 			Enable bgpd
 		</flag>
@@ -25,7 +29,7 @@
 			Build Next Hop Resolution Protocol daemon
 		</flag>
 		<flag name="eigrp">
-			Enable eigrpd
+			Enable eigrpd (experimental EIGRP implementation)
 		</flag>
 		<flag name="babel">
 			Enable babeld
@@ -34,16 +38,17 @@
 			Build Watchfrr utility
 		</flag>
 		<flag name="isis">
-			Enable pimd
+			Enable IS-IS daemon
 		</flag>
 		<flag name="pim">
 			Enable pimd
 		</flag>
 		<flag name="pbr">
-			Enable pbrd
+			Enable pbrd (Policy Based Routing, Linux only)
 		</flag>
 		<flag name="fabric">
-			Enable fabricd
+                        Enable fabricd (OpenFabric is a routing protocol
+                        derived from IS-IS)
 		</flag>
 		<flag name="snmp">
 			Enable SNMP support
@@ -58,7 +63,11 @@
 			Enable RPKI
 		</flag>
 		<flag name="multipath">
-			Enable multipath routes support for any number of routes
+                        Enable multipath routes support for any number of routes
+
+                        Obsolete: on FRR >=7.3 multipath cannot be disabled,
+                        setting it to `0` or disabling actually makes FRR build
+                        with the default 64 multipath paths limit.
 		</flag>
 		<flag name="pam">
 			Add support for PAM (via <pkg>sys-libs/pam</pkg>) to the Quagga Virtual Terminal 
@@ -73,6 +82,9 @@ Interface
 Terminal
 			Interface Shell (vtysh)
 		</flag>
+		<flag name="realms">
+			Enable Linux realms support
+		</flag>
 		<flag name="shell-access">
 			Enable user access to shell/telnet/ssh
 		</flag>
@@ -82,8 +94,14 @@ Terminal
 		<flag name="ospfapi">
 			Build OSPFAPI support (frr lower/equal 5.0)
 		</flag>
+		<flag name="rtadv">
+                        Build zebra with IPV6 router advertisement feature
+		</flag>
 		<flag name="sanitize">
 			Enable Address Sanitizer (requires GCC with sanitize)
+		</flag>
+		<flag name="vrrp">
+                        Build Virtual Router Redundancy Protocol daemon.
 		</flag>
 	</use>
 </pkgmetadata>
