@@ -16,21 +16,22 @@ SRC_URI="https://github.com/FRRouting/frr/archive/${P}.tar.gz"
 
 IUSE="
 	babel +bfd +bgp doc eigrp +fabric fpm +ipv6 +isis +ldp nhrp +ospf ospfapi
-	pam pbr +pim realms rip +rtadv sanitize snmp systemd vrrp +rpki"
+	pam pbr +pim realms rip +rpki +rtadv sanitize snmp systemd vrrp"
 
 REQUIRED_USE="
 	rpki? ( bgp )
 "
+
 COMMON_DEPEND="
 	=net-libs/libyang-0.16.104
 	dev-lang/python
 	dev-libs/json-c
 	nhrp? ( net-dns/c-ares )
 	pam? ( sys-libs/pam )
+	rpki? ( >=net-libs/rtrlib-0.6.3[ssh] )
 	snmp? ( net-analyzer/net-snmp )
 	sys-libs/libcap
 	sys-libs/readline
-	rpki? ( >=net-libs/rtrlib-0.6.3[ssh] )
 "
 
 BDEPEND="
