@@ -40,7 +40,7 @@ COMMON_DEPEND="
 	!elibc_glibc? ( dev-libs/libpcre )
 	rpki? ( >=net-libs/rtrlib-0.6.3[ssh] )
 	sanitize? ( sys-devel/gcc:*[sanitize] )
-	>=net-libs/libyang-0.16-r3"
+	=net-libs/libyang-0.16*"
 DEPEND="${COMMON_DEPEND}
 	dev-perl/XML-LibXML
 	sys-apps/gawk
