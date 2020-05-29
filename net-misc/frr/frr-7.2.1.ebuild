@@ -153,6 +153,6 @@ src_install() {
 	if use systemd ; then
 		systemd_dounit tools/frr.service
 	else
-		newinitd "${FILESDIR}/frr-openrc-v1" frr
+		newinitd "${FILESDIR}/frr-noprofile-openrc-v1" frr
 	fi
 }
