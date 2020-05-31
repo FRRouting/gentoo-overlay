@@ -26,6 +26,8 @@ config_file="/etc/frr/frr.conf"
 daemon_file="/etc/frr/daemons"
 daemon_db="/var/run/frrdb"
 vty_config_file="/etc/frr/vtysh.conf"
+frr_reload="$frr_dir/frr-reload.py"
+frr_reload_log="$frr_state_dir/reload.log"
 
 # watchfrr variables.
 watchfrr_daemons=''
@@ -234,14 +236,56 @@ start() {
   # Load daemon list.
   _load_daemon_list
 
+  # Handle restarts.
+  if [ "$RC_CMD" = 'restart' ]; then
+    ebegin 'Reloading FRR configuration'
+  else
+    ebegin 'Starting FRR'
+  fi
+
   # Start FRR.
-  ebegin 'Starting FRR'
   _frr_start
+
+  # New daemons and watchfrr started, apply new configuration.
+  if [ "$RC_CMD" = 'restart' ]; then
+    "$frr_reload" --reload "$config_file" 2>/var/run/frr/reload.log
+    [ $? -ne 0 ] && ewarn "  Failed to reload (check $frr_reload_log)"
+    # NOTE: we can't return bad status otherwise OpenRC will think we
+    # failed to start, lets print a helpful message instead.
+  fi
+
   eend 0
 }
 
 stop() {
   local failures=0
+
+  # Handle restarts.
+  if [ "$RC_CMD" = 'restart' ]; then
+    # Load daemon list.
+    _load_daemon_list
+
+    # We must restart 'watchfrr' in order to start new daemons.
+    veinfo "  Stopping watchfrr..."
+    _stop_daemon watchfrr
+
+    # Stop daemons that are no longer in configuration file.
+    for daemon in $(ls -1 /var/run/frr/*.pid | cut -d '.' -f 1); do
+      # Filter daemon name.
+      daemon=$(basename "$daemon")
+
+      # Skip watchfrr.
+      [ "$daemon" = 'watchfrr' ] && continue
+
+      echo "$watchfrr_daemons" | grep "$daemon" >/dev/null
+      if [ $? -ne 0 ]; then
+        veinfo "  Stopping $daemon..."
+        _stop_daemon $daemon
+      fi
+    done
+
+    return 0
+  fi
 
   ebegin 'Stopping FRR'
   _frr_stop || failures=1
