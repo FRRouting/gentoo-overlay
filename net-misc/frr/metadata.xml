@@ -16,6 +16,9 @@
 		<flag name="bgp">
 			Enable bgpd
 		</flag>
+		<flag name="grpc">
+			Enable gRPC plugin
+		</flag>
 		<flag name="rip">
 			Enable ripd
 		</flag>
