@@ -10,20 +10,20 @@ HOMEPAGE="https://frrouting.org/"
 LICENSE="GPL-2"
 SLOT="0"
 
-KEYWORDS="amd64 ~x86"
+KEYWORDS="~amd64 ~x86"
 
 SRC_URI="https://github.com/FRRouting/frr/archive/${P}.tar.gz"
 
 IUSE="
-	babel +bfd +bgp doc eigrp +fabric fpm +ipv6 +isis +ldp nhrp +ospf ospfapi
-	pam pbr +pim realms rip +rpki +rtadv sanitize snmp systemd vrrp"
+	babel +bfd +bgp doc eigrp +fabric fpm grpc +ipv6 +isis +ldp nhrp +ospf
+	ospfapi pam pbr +pim realms rip +rpki +rtadv sanitize snmp systemd vrrp"
 
 REQUIRED_USE="
 	rpki? ( bgp )
 "
 
 COMMON_DEPEND="
-	~net-libs/libyang-0.16.104
+	>=net-libs/libyang-0.16.104
 	dev-lang/python:*
 	dev-libs/json-c
 	nhrp? ( net-dns/c-ares )
@@ -32,6 +32,7 @@ COMMON_DEPEND="
 	snmp? ( net-analyzer/net-snmp )
 	sys-libs/libcap
 	sys-libs/readline
+	grpc? ( net-libs/grpc )
 "
 
 BDEPEND="
@@ -50,6 +51,7 @@ RDEPEND="
 	${DEPEND}
 	acct-user/frr
 	app-shells/bash
+	dev-python/ipaddr
 "
 
 # FRR tarballs have weird format.
@@ -86,6 +88,7 @@ src_configure() {
 		$(use_enable eigrp eigrpd) \
 		$(use_enable fabric fabricd) \
 		$(use_enable fpm) \
+		$(use_enable grpc) \
 		$(use_enable isis isisd) \
 		$(use_enable ldp ldpd) \
 		$(use_enable nhrp nhrpd) \
@@ -153,6 +156,6 @@ src_install() {
 	if use systemd ; then
 		systemd_dounit tools/frr.service
 	else
-		newinitd "${FILESDIR}/frr-noprofile-openrc-v1" frr
+		newinitd "${FILESDIR}/frr-openrc-v1" frr
 	fi
 }

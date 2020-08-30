@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>f0o@devilcode.org</email>
+		<name>Daniel 'f0o' Preussker</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>gentoo-frrouting@devilcode.org</email>
+		<name>Free Range Routing</name>
+	</maintainer>
+</pkgmetadata>

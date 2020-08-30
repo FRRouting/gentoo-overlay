@@ -50,6 +50,7 @@ RDEPEND="
 	${DEPEND}
 	acct-user/frr
 	app-shells/bash
+	dev-python/ipaddr
 "
 
 # FRR tarballs have weird format.

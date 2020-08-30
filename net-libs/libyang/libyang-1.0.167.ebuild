@@ -39,5 +39,5 @@ src_compile() {
 src_install() {
 	cmake-utils_src_install
 
-	use doc && dodoc -r ${S}/doc/*
+	use doc && dodoc -r "${S}"/doc/*
 }

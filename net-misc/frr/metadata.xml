@@ -98,13 +98,13 @@ Terminal
 			Build OSPFAPI support (frr lower/equal 5.0)
 		</flag>
 		<flag name="rtadv">
-                        Build zebra with IPV6 router advertisement feature
+			Build zebra with IPV6 router advertisement feature
 		</flag>
 		<flag name="sanitize">
 			Enable Address Sanitizer (requires GCC with sanitize)
 		</flag>
 		<flag name="vrrp">
-                        Build Virtual Router Redundancy Protocol daemon.
+			Build Virtual Router Redundancy Protocol daemon.
 		</flag>
 	</use>
 </pkgmetadata>

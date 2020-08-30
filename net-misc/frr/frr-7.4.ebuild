@@ -10,7 +10,7 @@ HOMEPAGE="https://frrouting.org/"
 LICENSE="GPL-2"
 SLOT="0"
 
-KEYWORDS="~x86 amd64"
+KEYWORDS="~amd64 ~x86"
 
 SRC_URI="https://github.com/FRRouting/frr/archive/${P}.tar.gz"
 
@@ -24,7 +24,7 @@ REQUIRED_USE="
 
 COMMON_DEPEND="
 	>=net-libs/libyang-0.16.104
-	dev-lang/python
+	dev-lang/python:*
 	dev-libs/json-c
 	nhrp? ( net-dns/c-ares )
 	pam? ( sys-libs/pam )
