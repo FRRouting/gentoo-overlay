@@ -61,7 +61,7 @@ RDEPEND="
 "
 
 # FRR tarballs have weird format.
-S="${WORKDIR}/frr-${P}"
+S="${WORKDIR}/frr-${PV}"
 
 src_prepare() {
 	default_src_prepare
