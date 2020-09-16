@@ -29,7 +29,7 @@ REQUIRED_USE="
 "
 
 COMMON_DEPEND="
-	>=net-libs/libyang-0.16.104
+	>=net-libs/libyang-1.0.184
 	dev-lang/python:*
 	dev-libs/json-c
 	nhrp? ( net-dns/c-ares )
@@ -61,7 +61,7 @@ RDEPEND="
 "
 
 # FRR tarballs have weird format.
-S="${WORKDIR}/frr-${P}"
+S="${WORKDIR}/frr-${PV}"
 
 src_prepare() {
 	default_src_prepare
