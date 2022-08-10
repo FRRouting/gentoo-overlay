@@ -1,7 +1,7 @@
 # Copyright 2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=8
 
 inherit autotools eutils flag-o-matic multilib pam readme.gentoo-r1 systemd tmpfiles user vcs-snapshot
 
