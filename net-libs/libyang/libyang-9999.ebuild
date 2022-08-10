@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit cmake-utils
+inherit cmake
 
 if [[ ${PV} != 9999 ]]; then
 	SRC_URI="https://github.com/CESNET/${PN}/archive/v${PVR}.tar.gz -> ${PF}.tar.gz"
@@ -30,9 +30,9 @@ src_configure() {
 		-DENABLE_LYD_PRIV=ON
 		-DCMAKE_BUILD_TYPE=Release
 	)
-	cmake-utils_src_configure
+	cmake_src_configure
 }
 
 src_compile() {
-	cmake-utils_src_compile
+	cmake_src_compile
 }

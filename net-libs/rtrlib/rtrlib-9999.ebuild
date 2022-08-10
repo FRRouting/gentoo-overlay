@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit eutils flag-o-matic multilib readme.gentoo-r1 vcs-snapshot cmake-utils
+inherit eutils flag-o-matic multilib readme.gentoo-r1 vcs-snapshot cmake
 
 if [[ ${PV} != 9999 ]]; then
 	SRC_URI="https://github.com/rtrlib/rtrlib/archive/v${PV}.tar.gz"
@@ -33,11 +33,11 @@ src_configure() {
 	if ! use ssh; then
 		CMAKE_BUILD_TYPE="NoSSH"
 	fi
-	cmake-utils_src_configure
+	cmake_src_configure
 }
 
 src_install() {
 	default
-	cmake-utils_src_install
+	cmake_src_install
 	prune_libtool_files
 }

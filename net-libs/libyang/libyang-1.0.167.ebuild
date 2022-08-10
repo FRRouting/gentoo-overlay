@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit cmake-utils
+inherit cmake
 
 DESCRIPTION="YANG data modeling language library"
 HOMEPAGE="https://github.com/CESNET/libyang"
@@ -27,17 +27,17 @@ src_configure() {
 		-DENABLE_LYD_PRIV=1
 		-DCMAKE_BUILD_TYPE=Release
 	)
-	cmake-utils_src_configure
+	cmake_src_configure
 }
 
 src_compile() {
-	cmake-utils_src_make
+	cmake_src_make
 
-	use doc && cmake-utils_src_make doc
+	use doc && cmake_src_make doc
 }
 
 src_install() {
-	cmake-utils_src_install
+	cmake_src_install
 
 	use doc && dodoc -r "${S}"/doc/*
 }
