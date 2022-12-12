@@ -11,8 +11,8 @@ LICENSE="GPL-2"
 SLOT="0"
 
 if [[ ${PV} != 9999 ]]; then
-	SRC_URI="https://github.com/FRRouting/frr/archive/${P}.tar.gz"
-	KEYWORDS="amd64 x86"
+	SRC_URI="https://github.com/FRRouting/frr/releases/download/${PV}/${P}.tar.gz"
+	KEYWORDS="amd64 ~x86 ~arm64"
 else
 	inherit git-r3
 	SRC_URI=""
@@ -29,12 +29,12 @@ REQUIRED_USE="
 "
 
 COMMON_DEPEND="
-	>=net-libs/libyang-1.0.184
+	>=net-libs/libyang-2.0.0
 	dev-lang/python:*
 	dev-libs/json-c
 	nhrp? ( net-dns/c-ares )
 	pam? ( sys-libs/pam )
-	rpki? ( >=net-libs/rtrlib-0.6.3[ssh] )
+	rpki? ( >=net-libs/rtrlib-0.8.0[ssh] )
 	snmp? ( net-analyzer/net-snmp )
 	sys-libs/libcap
 	sys-libs/readline
@@ -61,7 +61,7 @@ RDEPEND="
 "
 
 # FRR tarballs have weird format.
-S="${WORKDIR}/frr-${PV}"
+S="${WORKDIR}/frr-${P}"
 
 src_prepare() {
 	default_src_prepare

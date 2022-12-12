@@ -10,9 +10,15 @@ HOMEPAGE="https://frrouting.org/"
 LICENSE="GPL-2"
 SLOT="0"
 
-KEYWORDS="amd64 x86"
-
-SRC_URI="https://github.com/FRRouting/frr/archive/${P}.tar.gz"
+if [[ ${PV} != 9999 ]]; then
+	SRC_URI="https://github.com/FRRouting/frr/releases/download/${PV}/${P}.tar.gz"
+	KEYWORDS="amd64 ~x86 ~arm64"
+else
+	inherit git-r3
+	SRC_URI=""
+	EGIT_REPO_URI="https://github.com/FRRouting/frr.git"
+	KEYWORDS=""
+fi
 
 IUSE="
 	babel +bfd +bgp doc eigrp +fabric fpm grpc +ipv6 +isis +ldp nhrp +ospf

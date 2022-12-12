@@ -6,8 +6,9 @@ EAPI=7
 inherit eutils flag-o-matic multilib readme.gentoo-r1 vcs-snapshot cmake
 
 if [[ ${PV} != 9999 ]]; then
-	SRC_URI="https://github.com/rtrlib/rtrlib/archive/v${PV}.tar.gz"
-	KEYWORDS="~amd64 ~x86"
+	SRC_URI="https://github.com/rtrlib/rtrlib/releases/download/${PV}/v${PV}.tar.gz"
+	KEYWORDS="amd64 ~x86 ~arm64"
+	S="${WORKDIR}/v${PV}"
 else
 	inherit git-r3
 	SRC_URI=""
